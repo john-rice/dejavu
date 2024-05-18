@@ -7,7 +7,7 @@
 		"Lakhan Samani <lakhan.m.samani@gmail.com> (https://github.com/lakhansamani)",
 		"Divyanshu Maithani <div.blackcat@gmail.com> (https://github.com/divyanshu013)",
 		"Deepak Grover <deepakgrover333@gmail.com> (https://github.com/metagrover)",
-		"Appbase.io <info@appbase.io> (https://github.com/appbaseio)"
+		"ReactiveSearch.io <info@reactivesearch.io> (https://github.com/appbaseio)"
 	],
 	"main": "lib/index.js",
 	"module": "lib/index.es.js",

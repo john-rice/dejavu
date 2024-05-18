@@ -94,7 +94,7 @@ const AppFooter = () => (
 						<Title>Companion Tools</Title>
 						<li>
 							<a
-								href="https://appbase.io"
+								href="https://reactivesearch.io"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
@@ -163,16 +163,16 @@ const AppFooter = () => (
 						</li>
 						<li>
 							<a
-								href="http://docs.appbase.io/"
+								href="http://docs.reactivesearch.io/"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
-								Appbase.io Docs
+								ReactiveSearch.io Docs
 							</a>
 						</li>
 						<li>
 							<a
-								href="mailto:support@appbase.io"
+								href="mailto:support@reactivesearch.io"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
@@ -183,7 +183,11 @@ const AppFooter = () => (
 				</Footer.Links>
 				<Footer.Brand className={css({ width: 'auto' })}>
 					<div className={brand}>
-						<img width="100%" src={jellyfish} alt="appbase.io" />
+						<img
+							width="100%"
+							src={jellyfish}
+							alt="reactivesearch.io"
+						/>
 						<Grid gridGap="12px">
 							<Grid
 								gridTemplateColumns="auto"
@@ -215,10 +219,10 @@ const AppFooter = () => (
 							<a
 								target="_blank"
 								rel="noopener noreferrer"
-								href="mailto:info@appbase.io"
+								href="mailto:info@reactivesearch.io"
 								className={link}
 							>
-								info@appbase.io
+								info@reactivesearch.io
 							</a>
 						</Grid>
 					</div>
