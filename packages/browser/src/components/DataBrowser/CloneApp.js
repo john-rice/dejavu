@@ -20,17 +20,19 @@ const cloneHandler = (appname, rawUrl) => {
 };
 
 const CloneApp = ({ appname, rawUrl, isConnected }: Props) => {
-	return isConnected && (
-        <Button
-            icon={<ForkOutlined />}
-            type="primary"
-            onClick={() => cloneHandler(appname, rawUrl)}
-            css={{ marginRight: 10 }}
-        >
-            {' '}
-            Clone This App
-        </Button>
-    );
+	return (
+		isConnected && (
+			<Button
+				icon={<ForkOutlined />}
+				type="primary"
+				onClick={() => cloneHandler(appname, rawUrl)}
+				css={{ marginRight: 10 }}
+			>
+				{' '}
+				Clone Data
+			</Button>
+		)
+	);
 };
 const mapStateToProps = state => ({
 	appname: getAppname(state),

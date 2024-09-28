@@ -72,7 +72,7 @@ const Navigation = ({ indexes, isConnected, history }: Props) => {
 			</Item>
 			<Item key="import">
 				<UploadOutlined />
-				<span>Import Data</span>
+				<span>Import Data ↗️</span>
 			</Item>
 			{(indexes.length <= 1 || !isConnected) && (
 				<Item key="preview">

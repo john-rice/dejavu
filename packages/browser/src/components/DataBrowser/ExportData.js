@@ -206,7 +206,7 @@ class ExportData extends Component<Props, State> {
 			selectedType,
 			applyCurrentQuery,
 		} = this.state;
-		let visibleColumns = this.props.visibleColumns;
+		const { visibleColumns } = this.props;
 		visibleColumns.push('_id');
 		const res = await this.fetchData();
 		const flattenData = res.map(item => flatten(item));
@@ -317,7 +317,7 @@ class ExportData extends Component<Props, State> {
 			applyCurrentQuery,
 		} = this.state;
 
-		const { indexTypeMap, stats } = this.props;
+		const { indexTypeMap, stats, version } = this.props;
 		const chunkList = Object.keys(countChunks);
 		return (
 			<Fragment>
@@ -373,34 +373,37 @@ class ExportData extends Component<Props, State> {
 								</Select>
 							</Item>
 						</Col>
-						<Col span={12}>
-							<Item
-								style={{ marginRight: '15px' }}
-								label="Document Type"
-							>
-								<Select
-									value={selectedType}
-									onChange={this.handleTypeChange}
-									css={{
-										width: '100%',
-									}}
+						{(version === 5 || version === 6) && (
+							<Col span={12}>
+								<Item
+									style={{ marginRight: '15px' }}
+									label="Document Type"
 								>
-									{types.map(type => (
-										<Option key={type} value={type}>
-											{type}
-										</Option>
-									))}
-								</Select>
-							</Item>
-						</Col>
+									<Select
+										value={selectedType}
+										onChange={this.handleTypeChange}
+										css={{
+											width: '100%',
+										}}
+									>
+										{types.map(type => (
+											<Option key={type} value={type}>
+												{type}
+											</Option>
+										))}
+									</Select>
+								</Item>
+							</Col>
+						)}
 					</Row>
 					<Alert
 						type="info"
 						description={
 							<React.Fragment>
 								<div>
-									Data is exported in set of <b>{MAX_DATA}</b>{' '}
-									documents and in a sequential manner.
+									Data is exported in set of up to{' '}
+									<b>{MAX_DATA}</b> documents and in a
+									sequential manner.
 								</div>
 							</React.Fragment>
 						}
