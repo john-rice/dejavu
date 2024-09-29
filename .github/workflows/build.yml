@@ -4,7 +4,7 @@ on:
   release:
     types: [published]
   repository_dispatch:
-    types: [publish_binary]
+    types: [publish_binary]  # Adjusted to match your event_type
   workflow_dispatch:
 
 jobs:
@@ -48,7 +48,7 @@ jobs:
           echo "Error: Version is not set."
           exit 1
         fi
-          
+
     - name: Build Dejavu App
       run: yarn build:dejavu:app
 
@@ -56,24 +56,36 @@ jobs:
       run: |
         zip -r dist-${{ steps.set_version.outputs.version }}.zip ./packages/dejavu-main/dist
 
-    # Fetch release by tag using GitHub API
-    - name: Get release by tag
-      if: ${{ github.event_name == 'repository_dispatch' }}
-      id: get_release
+    # Determine the upload_url based on the event type
+    - name: Determine Upload URL
+      id: set_upload_url
       run: |
-        release_url=$(curl -s \
-          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          "https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ steps.set_version.outputs.version }}" \
-          | jq -r '.upload_url')
-        release_url=$(echo $release_url | sed -e "s/{?name,label}//") # Strip unnecessary part of URL
-        echo "upload_url=$release_url" >> $GITHUB_OUTPUT
+        if [ "${{ github.event_name }}" == "release" ]; then
+          echo "upload_url=${{ github.event.release.upload_url }}" >> $GITHUB_OUTPUT
+        elif [ "${{ github.event_name }}" == "repository_dispatch" ]; then
+          release_data=$(curl -s \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ steps.set_version.outputs.version }}")
+          upload_url=$(echo "$release_data" | jq -r '.upload_url')
+          if [ "$upload_url" == "null" ]; then
+            echo "Error: Release not found for tag ${steps.set_version.outputs.version}"
+            exit 1
+          fi
+          echo "upload_url=$upload_url" >> $GITHUB_OUTPUT
+        else
+          echo "Error: Unsupported event ${GITHUB_EVENT_NAME}"
+          exit 1
+        fi
 
-    # Use the extracted release upload URL for uploading the asset
+    # Verify the zip file exists
+    - name: Verify file before upload
+      run: ls -la ./dist-${{ steps.set_version.outputs.version }}.zip
+
+    # Upload the asset using the determined upload_url
     - name: Upload dist.zip to GitHub Release
-      if: ${{ github.event_name == 'repository_dispatch' }}
       uses: actions/upload-release-asset@v1
       with:
-        upload_url: ${{ steps.get_release.outputs.upload_url }}
+        upload_url: ${{ steps.set_upload_url.outputs.upload_url }}
         asset_path: ./dist-${{ steps.set_version.outputs.version }}.zip
-        asset_name: dejavu-dist-${{ steps.set_version.outputs.version }}.zip
+        asset_name: "dejavu-dist-${{ steps.set_version.outputs.version }}.zip"
         asset_content_type: application/zip
