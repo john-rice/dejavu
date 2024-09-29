@@ -4,7 +4,7 @@ on:
   release:
     types: [published]
   repository_dispatch:
-    types: [publish_docker]  # Trigger by publish_docker repository_dispatch event
+    types: [publish_binary]  # Trigger by publish_binary repository_dispatch event
   workflow_dispatch:
 
 jobs:
