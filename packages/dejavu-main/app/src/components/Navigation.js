@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import {
 	ExperimentOutlined,
-	SearchOutlined,
 	TableOutlined,
 	UploadOutlined,
 } from '@ant-design/icons';
@@ -73,14 +72,8 @@ const Navigation = ({ indexes, isConnected, history }: Props) => {
 			</Item>
 			<Item key="import">
 				<UploadOutlined />
-				<span>Import Data</span>
+				<span>Import Data ↗️</span>
 			</Item>
-			{(indexes.length <= 1 || !isConnected) && (
-				<Item key="query">
-					<SearchOutlined />
-					<span>Query Explorer</span>
-				</Item>
-			)}
 			{(indexes.length <= 1 || !isConnected) && (
 				<Item key="preview">
 					<ExperimentOutlined />

@@ -38,7 +38,7 @@ export const addData = async (
 			});
 		}
 
-		if (version > 5) {
+		if (version !== 5) {
 			baseUrl += `?refresh=wait_for`;
 		}
 		const res = await fetch(`${baseUrl}`, {
@@ -132,7 +132,7 @@ export const deleteData = async (
 		};
 		const res = await fetch(
 			`${url}/${indexName}${
-				version < 7 ? `/${typeName}` : ''
+				version === 5 || version === 6 ? `/${typeName}` : ''
 			}/_delete_by_query?wait_for_completion=true&scroll_size=5000`,
 			{
 				headers: {
@@ -214,7 +214,7 @@ export const bulkUpdate = async (
 
 		const res = await fetch(
 			`${url}/${indexName}${
-				version < 7 ? `/${typeName}` : ''
+				version === 5 || version === 6 ? `/${typeName}` : ''
 			}/_update_by_query?conflicts=proceed&wait_for_completion=true&scroll_size=5000`,
 			{
 				headers: {

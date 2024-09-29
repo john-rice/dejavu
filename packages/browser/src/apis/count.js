@@ -15,7 +15,8 @@ const getCount = async (app, type, rawUrl, version) => {
 
 		let updatedUrl = `${url}/${app}/_count`;
 
-		if (version < 7) {
+		// types were removed in ES 7
+		if (version === 5 || version === 6) {
 			updatedUrl = `${url}/${app}/${type}/_count`;
 		}
 

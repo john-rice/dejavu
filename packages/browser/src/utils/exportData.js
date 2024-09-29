@@ -49,17 +49,23 @@ export const searchAfter = async (
 	try {
 		const others = {};
 		if (searchAfterData) {
-			others.search_after = [searchAfterData];
+			others.search_after = searchAfterData;
 		}
-		const sortKey = version > 5 ? '_id' : '_uid';
+		let sort;
+
+		if (version === 5) {
+			sort = [{ _uid: 'desc' }]; // For version 5, use _uid with desc
+		} else if (version === 8) {
+			sort = ['_doc']; // For version 8, use _doc without desc
+		} else {
+			// For OpenSearch 1.x, 2.x, ES 6.x, 7.x
+			sort = [{ _id: 'desc' }]; // For versions 1, 2, 6, 7 use _id with desc
+		}
+
 		const data = await search(app, types, url, version, {
 			...query,
 			size: 1000,
-			sort: [
-				{
-					[sortKey]: 'desc',
-				},
-			],
+			sort,
 			...others,
 		});
 
@@ -80,16 +86,16 @@ export const searchAfter = async (
 			const lastObject = exportData[exportData.length - 1];
 			exportData = exportData.map(value => {
 				const item = Object.assign(value._source);
-				item['_id'] = value._id;
+				item._id = value._id;
 				return item;
 			});
 
 			return {
 				data: exportData,
 				searchAfter:
-					version > 5
-						? lastObject._id
-						: `${lastObject._type}#${lastObject._id}`,
+					version === 5
+						? `${lastObject._type}#${lastObject._id}`
+						: lastObject.sort,
 			};
 		}
 
@@ -119,10 +125,12 @@ const getSearchAfterData = async (
 		const { hits: totalhits, total } = hits;
 		jsonData = jsonData.concat(totalhits);
 		const lastObject = totalhits[totalhits.length - 1];
-		const nextSearchData =
-			version > 5
-				? lastObject._id
-				: `${lastObject._type}#${lastObject._id}`;
+		let nextSearchData;
+		if (version === 5) {
+			nextSearchData = `${lastObject._type}#${lastObject._id}`;
+		} else {
+			nextSearchData = lastObject.sort;
+		}
 		return searchAfter(
 			app,
 			types,

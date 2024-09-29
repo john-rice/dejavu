@@ -228,7 +228,7 @@ class AddFieldModal extends Component<Props, State> {
 	};
 
 	render() {
-		const { indexTypeMap } = this.props;
+		const { indexTypeMap, version } = this.props;
 		const {
 			addColumnError,
 			addColumnField,
@@ -294,26 +294,28 @@ class AddFieldModal extends Component<Props, State> {
 								</Select>
 							</Item>
 						</Col>
-						<Col span={12}>
-							<Item
-								style={{ marginRight: '15px' }}
-								label="Document Type"
-							>
-								<Select
-									value={selectedType}
-									onChange={this.handleTypeChange}
-									css={{
-										width: '100%',
-									}}
+						{(version === 5 || version === 6) && (
+							<Col span={12}>
+								<Item
+									style={{ marginRight: '15px' }}
+									label="Document Type"
 								>
-									{types.map(type => (
-										<Option key={type} value={type}>
-											{type}
-										</Option>
-									))}
-								</Select>
-							</Item>
-						</Col>
+									<Select
+										value={selectedType}
+										onChange={this.handleTypeChange}
+										css={{
+											width: '100%',
+										}}
+									>
+										{types.map(type => (
+											<Option key={type} value={type}>
+												{type}
+											</Option>
+										))}
+									</Select>
+								</Item>
+							</Col>
+						)}
 					</Row>
 					<Item
 						style={{ margin: '5px 0px' }}

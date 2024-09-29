@@ -15,7 +15,7 @@ const search = async (app, type, rawUrl, version, fetchData) => {
 
 		let updatedUrl = `${url}/${app}/_search`;
 
-		if (version < 7) {
+		if (version === 5 || version === 6) {
 			updatedUrl = `${url}/${app}/${type ? `${type}/` : ''}_search`;
 		}
 

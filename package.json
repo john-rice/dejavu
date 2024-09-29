@@ -47,18 +47,18 @@
 		"style-loader": "^0.23.0"
 	},
 	"engines": {
-		"node": ">=14.17.1 <17"
+		"node": ">=14.17.1 <21"
 	},
 	"license": "MIT",
 	"scripts": {
 		"dev:browser": "lerna run watch --scope @appbaseio/dejavu-browser --stream",
 		"start": "lerna run watch --scope dejavu-main --stream",
-		"dev:dejavu": "lerna run watch --scope dejavu-main --stream",
-		"dev:dejavu:site": "lerna run watch:site --scope dejavu-main --stream",
-		"build:browser": "lerna run build --scope @appbaseio/dejavu-browser --stream",
-		"build:dejavu": "yarn build:browser && lerna run build --scope dejavu-main --stream",
-		"build:dejavu:app": "yarn build:browser && lerna run build:app --scope dejavu-main --stream",
-		"build:dejavu:site": "yarn build:browser && lerna run build:site --scope dejavu-main --stream",
+		"dev:dejavu": "NODE_OPTIONS=--openssl-legacy-provider lerna run watch --scope dejavu-main --stream",
+		"dev:dejavu:site": "NODE_OPTIONS=--openssl-legacy-provider lerna run watch:site --scope dejavu-main --stream",
+		"build:browser": "NODE_OPTIONS=--openssl-legacy-provider lerna run build --scope @appbaseio/dejavu-browser --stream",
+		"build:dejavu": "NODE_OPTIONS=--openssl-legacy-provider yarn build:browser && lerna run build --scope dejavu-main --stream",
+		"build:dejavu:app": "NODE_OPTIONS=--openssl-legacy-provider yarn build:browser && lerna run build:app --scope dejavu-main --stream",
+		"build:dejavu:site": "NODE_OPTIONS=--openssl-legacy-provider yarn build:browser && lerna run build:site --scope dejavu-main --stream",
 		"build:chrome-extension": "yarn build:browser && lerna run build:chrome-extension --scope dejavu-main --stream",
 		"format": "lerna run format --stream"
 	},
