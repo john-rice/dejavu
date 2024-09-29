@@ -2,10 +2,10 @@ version: '3'
 services:
     # search engine
     opensearch:
-        image: opensearchproject/opensearch:1.2.4
+        image: opensearchproject/opensearch:2.17.0
         container_name: opensearch
         environment:
-            - plugins.security.disabled=true
+            - 'DISABLE_SECURITY_PLUGIN=true'
             - discovery.type=single-node
             - http.port=9200
             - http.cors.enabled=true
@@ -22,10 +22,10 @@ services:
                 soft: -1
                 hard: -1
         volumes:
-            - ./data:/usr/share/opensearch/data
+            - './data_os:/usr/share/opensearch/data'
     # elasticsearch browser
     dejavu:
-        image: appbaseio/dejavu:3.6.0
+        image: appbaseio/dejavu:latest
         container_name: dejavu
         ports:
             - '1358:1358'

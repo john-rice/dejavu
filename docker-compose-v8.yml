@@ -2,7 +2,7 @@ version: '3'
 services:
     # search engine
     elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.15.1
         container_name: elasticsearch
         environment:
             - discovery.type=single-node
@@ -13,6 +13,11 @@ services:
             - http.cors.allow-credentials=true
             - bootstrap.memory_lock=true
             - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+            - network.publish_host=_local_
+            - network.host=_local_,_site_
+            - transport.host=127.0.0.1
+            - http.host=0.0.0.0
+            - xpack.security.enabled=false
         ports:
             - '9200:9200'
             - '9300:9300'
@@ -24,7 +29,7 @@ services:
             - ./data:/usr/share/elasticsearch/data
     # elasticsearch browser
     dejavu:
-        image: appbaseio/dejavu:3.6.0
+        image: appbaseio/dejavu:latest
         container_name: dejavu
         ports:
             - '1358:1358'
