@@ -56,7 +56,7 @@ jobs:
       run: |
         zip -r dist-${{ steps.set_version.outputs.version }}.zip ./packages/dejavu-main/dist
 
-    # Fetch release by tag and get upload_url
+    # Fetch release by tag and get upload_url, stripping the placeholder
     - name: Get upload_url for release
       if: ${{ github.event_name == 'repository_dispatch' }}
       id: get_release
@@ -64,7 +64,7 @@ jobs:
         release_data=$(curl -s \
           -H "Authorization: token ${{ secrets.PAT }}" \
           "https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ steps.set_version.outputs.version }}")
-        upload_url=$(echo "$release_data" | jq -r '.upload_url')
+        upload_url=$(echo "$release_data" | jq -r '.upload_url' | sed -e "s/{?name,label}//")
         if [ "$upload_url" == "null" ]; then
           echo "Error: Release not found for tag ${steps.set_version.outputs.version}"
           exit 1
@@ -79,4 +79,15 @@ jobs:
           --data-binary @./dist-${{ steps.set_version.outputs.version }}.zip \
           "${{ steps.get_release.outputs.upload_url }}?name=dejavu-dist-${{ steps.set_version.outputs.version }}.zip"
 
-    # Post-release cleanup or notification steps can go here
+    # For release events, use the upload_url from the event payload
+    - name: Upload dist.zip to GitHub Release (release event)
+      if: ${{ github.event_name == 'release' }}
+      run: |
+        upload_url="${{ github.event.release.upload_url }}"
+        # Strip the placeholder
+        upload_url="${upload_url%\{*}"
+        curl -X POST \
+          -H "Authorization: token ${{ secrets.PAT }}" \
+          -H "Content-Type: application/zip" \
+          --data-binary @./dist-${{ steps.set_version.outputs.version }}.zip \
+          "${upload_url}?name=dejavu-dist-${{ steps.set_version.outputs.version }}.zip"
