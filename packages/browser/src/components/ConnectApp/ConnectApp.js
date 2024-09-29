@@ -666,8 +666,8 @@ class ConnectApp extends Component<Props, State> {
 									<ul>
 										<li>
 											You can connect to all indices by
-											passing an <code>*</code> in the app
-											name input field.
+											passing an <code>*</code> in the
+											index name input field.
 										</li>
 										<li>
 											You can also connect to a single
@@ -725,7 +725,7 @@ http.cors.allow-credentials: true`}
 											-e http.cors.allow-credentials=true
 											-e network.publish_host=localhost -e
 											xpack.security.enabled=false
-											docker.elastic.co/elasticsearch/elasticsearch:8.1.0
+											docker.elastic.co/elasticsearch/elasticsearch:8.15.1
 										</code>
 									</div>
 									<p style={{ marginTop: '14px' }}>
@@ -747,7 +747,7 @@ http.cors.allow-credentials: true`}
 											http.cors.allow-origin=\* -e
 											http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
 											-e http.cors.allow-credentials=true
-											opensearchproject/opensearch:1.2.4
+											opensearchproject/opensearch:2.17.0
 										</code>
 									</div>
 								</div>

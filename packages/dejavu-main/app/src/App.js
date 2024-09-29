@@ -249,8 +249,7 @@ class App extends Component {
 									</Modal>
 								</div>
 								<div>
-									Create your <b>Elasticsearch</b> in cloud
-									with{' '}
+									Deploy <b>OpenSearch</b> with{' '}
 									<a
 										href="https://reactivesearch.io?utm_source=dejavu&utm_medium=footer&utm_campaign=appbaseio"
 										target="_blank"

@@ -103,16 +103,7 @@ const AppFooter = () => (
 						</li>
 						<li>
 							<a
-								href="https://opensource.appbase.io/mirage"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								Query Builder
-							</a>
-						</li>
-						<li>
-							<a
-								href="https://opensource.appbase.io/reactivesearch"
+								href="https://opensource.reactivesearch.io/"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
