@@ -1,4 +1,4 @@
-FROM node:lts-alpine3.16
+FROM node:lts-alpine3.20
 LABEL maintainer="reactivesearch.io" email="info@reactivesearch.io"
 
 WORKDIR /dejavu
