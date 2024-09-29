@@ -48,7 +48,7 @@ jobs:
           echo "Error: Version is not set."
           exit 1
         fi
-
+          
     - name: Build Dejavu App
       run: yarn build:dejavu:app
 
@@ -56,11 +56,24 @@ jobs:
       run: |
         zip -r dist-${{ steps.set_version.outputs.version }}.zip ./packages/dejavu-main/dist
 
+    # Fetch release by tag using GitHub API
+    - name: Get release by tag
+      if: ${{ github.event_name == 'repository_dispatch' }}
+      id: get_release
+      run: |
+        release_url=$(curl -s \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          "https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ steps.set_version.outputs.version }}" \
+          | jq -r '.upload_url')
+        release_url=$(echo $release_url | sed -e "s/{?name,label}//") # Strip unnecessary part of URL
+        echo "upload_url=$release_url" >> $GITHUB_OUTPUT
+
+    # Use the extracted release upload URL for uploading the asset
     - name: Upload dist.zip to GitHub Release
-      if: ${{ github.event_name == 'release' || github.event_name == 'repository_dispatch' }}
+      if: ${{ github.event_name == 'repository_dispatch' }}
       uses: actions/upload-release-asset@v1
       with:
-        upload_url: ${{ github.event.release.upload_url }}
+        upload_url: ${{ steps.get_release.outputs.upload_url }}
         asset_path: ./dist-${{ steps.set_version.outputs.version }}.zip
         asset_name: dejavu-dist-${{ steps.set_version.outputs.version }}.zip
         asset_content_type: application/zip
