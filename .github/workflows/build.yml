@@ -4,7 +4,7 @@ on:
   release:
     types: [published]
   repository_dispatch:
-    types: [publish_binary]  # Trigger by publish_binary repository_dispatch event
+    types: [publish_binary]
   workflow_dispatch:
 
 jobs:
@@ -47,6 +47,7 @@ jobs:
         else
           echo "Error: Version is not set."
           exit 1
+        fi
 
     - name: Build Dejavu App
       run: yarn build:dejavu:app
