@@ -11,6 +11,8 @@ import {
 	colors,
 } from '@appbaseio/dejavu-browser';
 
+import { inject } from '@vercel/analytics';
+
 import Navigation from './components/Navigation';
 import NoMatch from './components/NoMatch';
 
@@ -41,6 +43,7 @@ class App extends Component {
 	};
 
 	componentDidMount() {
+		inject();
 		const { sidebar, footer } = getUrlParams(window.location.search);
 
 		if (sidebar && sidebar === 'false') {
@@ -115,7 +118,9 @@ class App extends Component {
 			<Provider store={store}>
 				<BrowserRouter>
 					<Layout
-						css={{ minHeight: isShowingSideBar ? '100vh' : 'auto' }}
+						css={{
+							minHeight: isShowingSideBar ? '100vh' : 'auto',
+						}}
 					>
 						{isShowingSideBar && (
 							<Sider
