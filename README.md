@@ -1,4 +1,4 @@
-# dejavu: The Web UI for Elasticsearch and OpenSearch
+# dejavu: The Web UI for OpenSearch and Elasticsearch
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/appbaseio/dejavu/dev/LICENSE.md) ![React Version](https://img.shields.io/badge/react-v16.6-brightgreen.svg)
 [![Docker Pulls](https://img.shields.io/docker/pulls/appbaseio/dejavu.svg)](https://hub.docker.com/r/appbaseio/dejavu/)
@@ -21,7 +21,7 @@
 
 ### 1. Dejavu Intro
 
-**Dejavu** is a modern web UI for Elasticsearch and OpenSearch.
+**Dejavu** is a modern web UI for OpenSearch and Elasticsearch.
 
 It was designed with the goal of providing a seamless user experience, featuring no page reloads, infinite scroll, filtered views, real-time updates, and a search UI builder. With 100% client-side rendering, Dejavu can easily be run as a [hosted app on github pages](https://dejavu.reactivesearch.io) or [as a docker image](https://hub.docker.com/r/appbaseio/dejavu/).
 

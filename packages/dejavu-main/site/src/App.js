@@ -279,7 +279,7 @@ class App extends Component<null, State> {
 								},
 							}}
 						>
-							The missing web UI for Elasticsearch
+							A web UI for OpenSearch and Elasticsearch
 						</H1>
 						<div
 							css={{
