@@ -14,7 +14,7 @@ type Props = {
 
 const cloneHandler = (appname, rawUrl) => {
 	window.open(
-		`https://importer.appbase.io/?appname=${appname}&url=${rawUrl}&origin=dejavu`,
+		`https://importer.reactivesearch.io/?appname=${appname}&url=${rawUrl}&origin=dejavu`,
 		'_blank',
 	);
 };

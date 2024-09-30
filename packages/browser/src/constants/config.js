@@ -18,7 +18,7 @@ export const isUsingOpenSearch = () =>
 export const SCALR_URL = 'scalr.api.appbase.io';
 export const ACC_API = 'https://accapi.appbase.io';
 export const SCALR_API = 'https://scalr.api.appbase.io';
-export const IMPORTER_LINK = 'https://importer.appbase.io/';
+export const IMPORTER_LINK = 'https://importer.reactivesearch.io/';
 
 export const exampleConfig = [
 	{

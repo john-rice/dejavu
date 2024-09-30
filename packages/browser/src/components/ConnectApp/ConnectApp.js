@@ -476,7 +476,7 @@ class ConnectApp extends Component<Props, State> {
 									<Input.Password
 										name="url"
 										value={url}
-										placeholder="URL for cluster goes here. e.g.  https://username:password@scalr.api.appbase.io"
+										placeholder="URL for cluster goes here. e.g.  https://username:password@my-search-cluster.com"
 										onChange={this.handleChange}
 										disabled={isConnected}
 										required
@@ -747,6 +747,7 @@ http.cors.allow-credentials: true`}
 											http.cors.allow-origin=\* -e
 											http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
 											-e http.cors.allow-credentials=true
+											-e DISABLE_SECURITY_PLUGIN=true
 											opensearchproject/opensearch:2.17.0
 										</code>
 									</div>

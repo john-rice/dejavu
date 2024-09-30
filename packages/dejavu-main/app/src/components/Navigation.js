@@ -38,7 +38,7 @@ const Navigation = ({ indexes, isConnected, history }: Props) => {
 	const navHandler = key => {
 		switch (key) {
 			case 'import':
-				window.open('https://importer.appbase.io/', '_blank');
+				window.open('https://importer.reactivesearch.io/', '_blank');
 				break;
 			case 'browse':
 				setSelectedKey('browse');
@@ -70,16 +70,16 @@ const Navigation = ({ indexes, isConnected, history }: Props) => {
 				<TableOutlined />
 				<span>Data Browser</span>
 			</Item>
-			<Item key="import">
-				<UploadOutlined />
-				<span>Import Data ↗️</span>
-			</Item>
 			{(indexes.length <= 1 || !isConnected) && (
 				<Item key="preview">
 					<ExperimentOutlined />
 					<span>Search Preview</span>
 				</Item>
 			)}
+			<Item key="import">
+				<UploadOutlined />
+				<span>Import Data ↗️</span>
+			</Item>
 		</Menu>
 	);
 };

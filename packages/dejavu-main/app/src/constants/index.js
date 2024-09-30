@@ -5,7 +5,7 @@ export const MODES = {
 
 export const LOCAL_CONNECTIONS = 'localConnections';
 
-export const IMPORTER_LINK = 'https://importer.appbase.io/?app=';
+export const IMPORTER_LINK = 'https://importer.reactivesearch.io/?app=';
 
 export const SETTINGS = {
 	'index.max_ngram_diff': 10,
